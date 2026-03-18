@@ -83,12 +83,14 @@
 \renewcommand{\bibname}{ΒΙΒΛΙΟΓΡΑΦΙΑ}
 \begingroup
 \selectlanguage{english}
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,references}
 \endgroup
 
 \appendix
-\part*{ΠΑΡΑΡΤΗΜΑΤΑ}
+\chapter*{ΠΑΡΑΡΤΗΜΑΤΑ}
 \addcontentsline{toc}{part}{ΠΑΡΑΡΤΗΜΑΤΑ}
 \include{appendixA}
 \include{appendixB}
