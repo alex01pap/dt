@@ -25,6 +25,8 @@
 \newcommand{\en}[1]{\textlatin{#1}}
 \renewcommand{\contentsname}{Περιεχόμενα}
 \renewcommand{\listfigurename}{Κατάλογος Σχημάτων}
+\addto\captionsenglish{\renewcommand{\bibname}{Βιβλιογραφία}}
+\addto\captionsgreek{\renewcommand{\bibname}{Βιβλιογραφία}}
 \newcommand{\figureplaceholder}[2][0.82\textwidth]{%
   \fbox{%
     \begin{minipage}[c][0.2\textheight][c]{#1}
@@ -80,10 +82,8 @@
 \include{chapter7}
 \include{chapter8}
 
-\renewcommand{\bibname}{Βιβλιογραφία}
 \begingroup
-\selectlanguage{greek}
-\renewcommand{\bibname}{Βιβλιογραφία}
+\selectlanguage{english}
 \phantomsection
 \addcontentsline{toc}{chapter}{Βιβλιογραφία}
 \bibliographystyle{IEEEtran}
