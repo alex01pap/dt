@@ -1,0 +1,97 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,greek]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[parfill]{parskip}
+\usepackage[unicode]{hyperref}
+\usepackage{bookmark}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{kmath,kerkis}
+\usepackage{textgreek}
+\graphicspath{{../PICS/}}
+
+\def\tl{\textlatin}
+\def\tg{\textgreek}
+\newcommand{\en}[1]{\textlatin{#1}}
+\renewcommand{\contentsname}{Περιεχόμενα}
+\renewcommand{\listfigurename}{Κατάλογος Σχημάτων}
+\newcommand{\figureplaceholder}[2][0.82\textwidth]{%
+  \fbox{%
+    \begin{minipage}[c][0.2\textheight][c]{#1}
+      \centering \small #2
+    \end{minipage}%
+  }%
+}
+\lstdefinelanguage{javascript}{
+  basicstyle=\ttfamily\small,
+  showstringspaces=false,
+  breaklines=true
+}
+\lstdefinelanguage{json}{
+  basicstyle=\ttfamily\small,
+  showstringspaces=false,
+  breaklines=true
+}
+\lstset{
+  basicstyle=\fontencoding{T1}\ttfamily\small,
+  columns=fullflexible,
+  keepspaces=true,
+  breaklines=true,
+  showstringspaces=false,
+  frame=single
+}
+
+\begin{document}
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+\include{cover}
+
+\tableofcontents
+\addcontentsline{toc}{chapter}{Περιεχόμενα}
+\clearpage
+
+\listoffigures
+\addcontentsline{toc}{chapter}{Κατάλογος Σχημάτων}
+\clearpage
+
+\include{acronyms}
+
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\include{chapter1}
+\include{chapter2}
+\include{chapter3}
+\include{chapter4}
+\include{chapter5}
+\include{chapter6}
+\include{chapter7}
+\include{chapter8}
+
+\renewcommand{\bibname}{ΒΙΒΛΙΟΓΡΑΦΙΑ}
+\begingroup
+\selectlanguage{english}
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,references}
+\endgroup
+
+\appendix
+\part*{ΠΑΡΑΡΤΗΜΑΤΑ}
+\addcontentsline{toc}{part}{ΠΑΡΑΡΤΗΜΑΤΑ}
+\include{appendixA}
+\include{appendixB}
+\include{appendixC}
+
+\end{document}

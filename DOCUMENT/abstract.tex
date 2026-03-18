@@ -1,0 +1,25 @@
+\chapter*{Περίληψη}
+\addcontentsline{toc}{chapter}{Περίληψη}
+
+Η παρούσα διπλωματική εργασία πραγματεύεται τον σχεδιασμό, την υλοποίηση και την αξιολόγηση μιας ολοκληρωμένης πλατφόρμας Ψηφιακού Διδύμου (\textlatin{Digital Twin}), ειδικά προσαρμοσμένης για εκπαιδευτικά περιβάλλοντα και Έξυπνες Πανεπιστημιουπόλεις (\textlatin{Smart Campuses}). Σε αντίθεση με τις παραδοσιακές, αντιδραστικές (\textlatin{reactive}) μεθόδους διαχείρισης κτιρίων ή τα απλά συστήματα παρακολούθησης (\textlatin{Digital Shadows}), η προτεινόμενη λύση εγκαθιδρύει μια αμφίδρομη, πραγματικού χρόνου επικοινωνία μεταξύ του φυσικού σχολικού χώρου και του ψηφιακού του αντιγράφου, επιτρέποντας τη λήψη αυτοματοποιημένων αποφάσεων.
+
+Η ανάπτυξη του συστήματος ακολούθησε μια αυστηρή διεπιστημονική προσέγγιση, βασισμένη στην αρχιτεκτονική πέντε επιπέδων. Σε επίπεδο υλικού, εγκαταστάθηκε δίκτυο κόμβων Διαδικτύου των Πραγμάτων (\textlatin{IoT}) χαμηλού κόστους, αποτελούμενο από μικροελεγκτές \textlatin{ESP32}, έξυπνους μετρητές \textlatin{Shelly 1PM} και συσκευές \textlatin{Sonoff}. Σε επίπεδο λογισμικού, αναπτύχθηκε μια ισχυρή, τοπικά εκτελούμενη αρχιτεκτονική με χρήση \textlatin{MQTT, InfluxDB} και \textlatin{openHAB} ως σημασιολογικό ενδιάμεσο λογισμικό (\textlatin{edge middleware}) στο τοπικό επίπεδο, το οποίο τροφοδοτεί ένα \textlatin{Enterprise Cloud SaaS} επίπεδο (\textlatin{React 18 / Supabase}) που υλοποιεί την τελική τρισδιάστατη (\textlatin{3D}) διεπαφή χρήστη.
+
+Η έρευνα δομείται πάνω σε τρεις κεντρικούς πυλώνες: (α) τη βελτιστοποίηση του μαθησιακού περιβάλλοντος (\textlatin{Environmental Quality}), μέσω της διαρκούς παρακολούθησης της ακουστικής άνεσης με επιχειρησιακό όριο παρέμβασης τα \textlatin{55 dBA}, (β) την ενεργειακή αποδοτικότητα (\textlatin{Energy Efficiency}), με συνεχή καταγραφή ισχύος, και (γ) τη λειτουργική διαχείριση (\textlatin{Facility Management}) μέσω απομακρυσμένου ελέγχου. Από την πιλοτική εφαρμογή στα «Εκπαιδευτήρια Πλάτων» (Μάρτιος -- Νοέμβριος 2025), επιτεύχθηκε και επαληθεύτηκε μέση μείωση της ενεργειακής κατανάλωσης κατά 19,7\%. Παράλληλα, η τεχνοοικονομική ανάλυση επιβεβαίωσε την υψηλή προστιθέμενη αξία της μετάβασης σε ένα σύγχρονο Έξυπνο Σχολείο, καταδεικνύοντας απόσβεση της επένδυσης σε 42,5 μήνες και 5ετές \textlatin{ROI} 41,02\%.
+
+\noindent\textbf{Λέξεις-Κλειδιά:} Ψηφιακό Δίδυμο, Έξυπνο Σχολείο, Διαδίκτυο των Πραγμάτων (\textlatin{IoT}), Μαθησιακό Περιβάλλον, Ενεργειακή Αποδοτικότητα, Διαχείριση Εγκαταστάσεων.
+
+\clearpage
+\selectlanguage{english}
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+This diploma thesis presents the design, implementation, and evaluation of a comprehensive \textlatin{Digital Twin} platform tailored specifically for educational environments and \textlatin{Smart Campuses}. In contrast to traditional reactive building-management methods or simple monitoring systems (\textlatin{Digital Shadows}), the proposed solution establishes a bidirectional, real-time communication channel between the physical school environment and its digital counterpart, enabling automated decision-making.
+
+The system was developed through a rigorous interdisciplinary approach based on a five-layer architecture. At the hardware level, a low-cost \textlatin{Internet of Things} (\textlatin{IoT}) network was deployed, consisting of ESP32 microcontrollers, Shelly 1PM smart meters, and Sonoff devices. At the software level, a locally executed architecture was implemented using the MQTT protocol, the InfluxDB time-series database, and the open-source openHAB middleware operating as edge semantic middleware, which feeds an Enterprise Cloud SaaS layer (React 18 / Supabase) that delivers the final three-dimensional (3D) user interface.
+
+The research is structured around three core pillars: (\textlatin{a}) optimization of the learning environment (\textlatin{Environmental Quality}) through continuous acoustic-comfort monitoring based on a 55 dBA intervention threshold; (\textlatin{b}) \textlatin{Energy Efficiency} through continuous power tracking; and (\textlatin{c}) \textlatin{Facility Management} through centralized monitoring and remote actuation. Following the pilot implementation at Platon Schools (March -- November 2025), an average energy-consumption reduction of 19.7\% was achieved and verified. In parallel, the techno-economic analysis confirmed the added value and financial viability of the proposed approach, demonstrating a 42.5-month payback period and a five-year ROI of 41.02\%.
+
+\noindent\textbf{Keywords:} \textlatin{Digital Twin}, \textlatin{Smart Campus}, \textlatin{Internet of Things} (\textlatin{IoT}), Learning Environment, \textlatin{Energy Efficiency}, \textlatin{Facility Management}.
+\selectlanguage{greek}
+\clearpage

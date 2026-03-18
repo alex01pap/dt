@@ -1,0 +1,49 @@
+\chapter{Αποσπάσματα Κώδικα και \textlatin{openHAB Rules}}
+
+Ακολουθεί ενδεικτικό απόσπασμα κανόνα (\textlatin{Rule}) που υλοποιήθηκε στο περιβάλλον \textlatin{openHAB} για τον έλεγχο της
+ακουστικής άνεσης (\textlatin{NoiseGuard}) στην εκάστοτε σχολική αίθουσα. Ο κώδικας καταγράφει τις υπερβάσεις θορύβου και
+ενεργοποιεί την οπτική ανατροφοδότηση.
+
+\begin{lstlisting}[caption={Listing Γ.1: Ενδεικτικός κανόνας \textlatin{NoiseGuard} σε \textlatin{openHAB}},label={lst:noiseguard_rule}]
+var int cl1Count = 0
+
+rule "Noise threshold CL1"
+when
+    Item CL1_Noise_dB changed
+then
+    val db = (CL1_Noise_dB.state as Number).floatValue
+    val th = (CL1_Noise_Threshold.state as Number).floatValue
+    
+    // Check if current noise level exceeds the operational threshold (55 dBA)
+    if (db > th) {
+        cl1Count = cl1Count + 1
+        
+        // Require 4 consecutive samples (approx. 20s) to avoid false triggers
+        if (cl1Count >= 4) {
+            Classroom_QuietLamp_Cmd.sendCommand(ON)
+            logInfo("NoiseGuard", "Threshold exceeded — Quiet Lamp ON")
+        }
+    } else {
+        // Reset counter and turn off lamp immediately if noise levels drop
+        cl1Count = 0
+        Classroom_QuietLamp_Cmd.sendCommand(OFF)
+    }
+end
+// counter 4 cycles x sampling rate 5s = ~20s dwell time
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Listing Γ.2: Ενδεικτικός κανόνας \textlatin{FridgeGuardian} σε \textlatin{openHAB}},label={lst:fridgeguardian_rule}]
+rule "Fridge Door Alert"
+when
+    Item Canteen_Fridge_Door changed to OPEN
+then
+    createTimer(now.plusSeconds(45), [ |
+        if(Canteen_Fridge_Door.state == OPEN) {
+            Canteen_Buzzer_Cmd.sendCommand(ON)
+            logInfo("Canteen", "Fridge open > 45s!")
+        }
+    ])
+end
+\end{lstlisting}
+
+
