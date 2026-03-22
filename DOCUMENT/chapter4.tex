@@ -9,21 +9,19 @@
 Το τοπικό πρωτότυπο ήταν εξαιρετικά σημαντικό για δύο λόγους. Πρώτον, επέτρεψε τη σταδιακή βαθμονόμηση του \textlatin{edge hardware}, των \textlatin{topics}, των κανόνων και των \textlatin{thresholds} σε πραγματικές συνθήκες πεδίου. Δεύτερον, παρήγαγε την πρώτη αξιόπιστη μάζα ιστορικών δεδομένων πάνω στην οποία στηρίχθηκαν τόσο η ενεργειακή ανάλυση όσο και η μετέπειτα σχεδίαση της τελικής \textlatin{cloud} πλατφόρμας. Με άλλα λόγια, η αρχική υλοποίηση δεν αποτελεί «ξεπερασμένο» στάδιο, αλλά τον αποδεικτικό πυρήνα της λειτουργικής αξίας του συστήματος.
 
 \subsection{\texorpdfstring{Τοπική Δικτυακή Υποδομή με \textlatin{MQTT} και \textlatin{Eclipse Mosquitto}}{Τοπική Δικτυακή Υποδομή με MQTT και Eclipse Mosquitto}}
-Η επικοινωνία μεταξύ των \textlatin{edge} συσκευών και του κεντρικού εξυπηρετητή υλοποιήθηκε αρχικά αποκλειστικά μέσω του πρωτοκόλλου \textlatin{MQTT}. Η επιλογή αυτή αιτιολογείται από το γεγονός ότι το \textlatin{MQTT} έχει καθιερωθεί ως ένα από τα πλέον κατάλληλα πρωτόκολλα για περιβάλλοντα \textlatin{IoT}, λόγω του χαμηλού δικτυακού φορτίου, της αρχιτεκτονικής \textlatin{publish/subscribe} και της δυνατότητας αποσύζευξης μεταξύ παραγωγών και καταναλωτών μηνυμάτων \cite{Al-Fuqaha2015}, \cite{EclipseMosquitto2024}. Ως \textlatin{broker} χρησιμοποιήθηκε το \textlatin{Eclipse Mosquitto}, το οποίο εγκαταστάθηκε τοπικά σε \textlatin{Raspberry Pi} και ανέλαβε τη δρομολόγηση όλων των κρίσιμων ροών τηλεμετρίας και ελέγχου \cite{EclipseMosquitto2024}.
+Η επικοινωνία μεταξύ των \textlatin{edge} συσκευών και του κεντρικού εξυπηρετητή υλοποιήθηκε αρχικά αποκλειστικά μέσω \textlatin{MQTT}, με τοπική εγκατάσταση του \textlatin{Eclipse Mosquitto} σε \textlatin{Raspberry Pi}, ο οποίος ανέλαβε τη δρομολόγηση όλων των ροών τηλεμετρίας και ελέγχου \cite{EclipseMosquitto2024}. Στο επίπεδο παραμετροποίησης, κάθε κόμβος δημοσίευε τις μετρήσεις του σε προκαθορισμένα \textlatin{topics}, ενώ το \textlatin{openHAB} και τα υπόλοιπα υποσυστήματα εγγράφονταν στα αντίστοιχα κανάλια για λήψη μετρήσεων ή αποστολή εντολών.
 
-Η δομή των \textlatin{MQTT topics} σχεδιάστηκε ώστε να αποτυπώνει χωρικά και λειτουργικά τη φυσική εγκατάσταση. Με αυτόν τον τρόπο, οι μετρήσεις θορύβου, ισχύος, κατάστασης θυρών και εντολών ενεργοποίησης ήταν δυνατό να οργανωθούν σε σαφείς ιεραρχίες ανά κτίριο, χώρο και συσκευή. Η σχεδίαση αυτή επέτρεψε τη μελλοντική επέκταση του συστήματος χωρίς ανατροπή της βασικής λογικής δρομολόγησης.
+Η δομή των \textlatin{MQTT topics} οργανώθηκε ιεραρχικά ώστε να αντιστοιχεί στη φυσική εγκατάσταση και στα επιμέρους υποσυστήματα. Έτσι, οι ροές θορύβου, ισχύος, θερμοκρασίας, κατάστασης θυρών και εντολών ενεργοποίησης αποτυπώθηκαν σε διακριτά \textlatin{topics} ανά χώρο και συσκευή, ώστε να υποστηρίζεται καθαρή δρομολόγηση δεδομένων και εύκολη επέκταση του σχήματος ονοματοδοσίας.
 
 \subsection{\texorpdfstring{\textlatin{Semantic Middleware} και Κανόνες Ελέγχου στο \textlatin{openHAB}}{Semantic Middleware και Κανόνες Ελέγχου στο openHAB}}
-Στο δεύτερο επίπεδο του πρωτοτύπου χρησιμοποιήθηκε το \textlatin{openHAB} ως \textlatin{semantic middleware} και \textlatin{rules engine}. Η επιλογή του \textlatin{openHAB} δεν βασίστηκε μόνο στη δημοφιλία του ως \textlatin{open-source} εργαλείο αυτοματισμού, αλλά κυρίως στη δυνατότητα που προσφέρει για σημασιολογική οργάνωση συσκευών και χώρων, καθώς και για υλοποίηση αυτοματοποιημένων κανόνων με σαφή λογική αντίληψης, απόφασης και δράσης \cite{OpenHAB2024}.
-
-Στο πλαίσιο του πρωτοτύπου, το \textlatin{openHAB} συγκέντρωνε τη ροή δεδομένων από \textlatin{MQTT}, τη μετέτρεπε σε δομημένα \textlatin{Items} και εφάρμοζε βασικούς αυτοματισμούς όπως:
+Στο δεύτερο επίπεδο του πρωτοτύπου χρησιμοποιήθηκε το \textlatin{openHAB} ως \textlatin{semantic middleware} και \textlatin{rules engine}. Στο πλαίσιο της πρακτικής υλοποίησης, το \textlatin{openHAB} συγκέντρωνε τη ροή δεδομένων από \textlatin{MQTT}, τη μετέτρεπε σε δομημένα \textlatin{Items}, αντιστοιχισμένα σε συγκεκριμένους χώρους και συσκευές, και εφάρμοζε βασικούς αυτοματισμούς όπως:
 \begin{itemize}
   \item τον έλεγχο θορύβου στην αίθουσα μέσω της \textlatin{quiet-lamp},
   \item την ανίχνευση ανοιχτής πόρτας ψυγείου και την ειδοποίηση για λειτουργική ανωμαλία,
   \item την αρχική εποπτεία ενεργειακών φορτίων στο κυλικείο.
 \end{itemize}
 
-Η υλοποίηση αυτών των κανόνων επιβεβαίωσε στην πράξη ότι το σύστημα δεν περιορίζεται σε παθητική παρακολούθηση. Αντίθετα, διαθέτει \textlatin{closed-loop} χαρακτήρα, επειδή μετατρέπει τη συλλογή δεδομένων σε λειτουργικές παρεμβάσεις στο φυσικό περιβάλλον (βλ.\ Παράρτημα Γ, Λίστα Γ.1 και Γ.2 για τον αναλυτικό κώδικα των κανόνων \textlatin{NoiseGuard} και \textlatin{FridgeGuardian} αντίστοιχα).
+Η παραμετροποίηση αυτή υλοποιήθηκε με κανόνες που χρησιμοποιούσαν επιχειρησιακά \textlatin{thresholds}, χρονόμετρα και συνθήκες κατάστασης. Ενδεικτικά, ο κανόνας \textlatin{NoiseGuard} ενεργοποιούσε την \textlatin{quiet-lamp} όταν η στάθμη θορύβου υπερέβαινε το καθορισμένο όριο, ενώ ο \textlatin{FridgeGuardian} συνέδεε την κατάσταση της θύρας με χρονική καθυστέρηση και ενεργοποίηση \textlatin{buzzer} ειδοποίησης (βλ.\ Παράρτημα Γ, Λίστα Γ.1 και Γ.2 για τον αναλυτικό κώδικα των κανόνων \textlatin{NoiseGuard} και \textlatin{FridgeGuardian} αντίστοιχα).
 
 \subsection{\texorpdfstring{Ιστορική Καταγραφή σε \textlatin{InfluxDB} και Αρχικά \textlatin{Dashboards} σε \textlatin{Grafana}}{Ιστορική Καταγραφή σε InfluxDB και Αρχικά Dashboards σε Grafana}}
 Για την αποθήκευση χρονοσειρών και την ιστορική τεκμηρίωση της λειτουργίας του συστήματος, το τοπικό πρωτότυπο διασυνδέθηκε με \textlatin{InfluxDB} \cite{InfluxData2024}. Η βάση αυτή επιλέχθηκε επειδή ήταν ιδιαίτερα κατάλληλη για ταχεία εγγραφή τηλεμετρίας και ανάλυση μετρήσεων που μεταβάλλονται χρονικά, όπως ο θόρυβος, η ενεργός ισχύς και οι καταστάσεις εξοπλισμού.
@@ -33,7 +31,7 @@
 \subsection{Αποδεικτική Αξία και Περιορισμοί του Τοπικού Πρωτοτύπου}
 Η πρώτη αυτή φάση απέδειξε ότι η συλλογή δεδομένων, η σημασιολογική μοντελοποίηση και οι βασικοί αυτοματισμοί μπορούσαν να λειτουργήσουν αξιόπιστα σε πραγματικό σχολικό περιβάλλον. Ωστόσο, ανέδειξε και σαφείς περιορισμούς. Οι διαθέσιμες διεπαφές ήταν κυρίως \textlatin{engineering-oriented} και όχι σχεδιασμένες για μη τεχνικούς χρήστες. Τα \textlatin{dashboards} και τα \textlatin{floorplan views} ήταν επαρκή για τεχνική εποπτεία, αλλά όχι ιδανικά για επιχειρησιακή χρήση από διευθυντές ή διοικητικό προσωπικό. Επιπλέον, η απομακρυσμένη πρόσβαση στο πρωτότυπο περιβάλλον ήταν περισσότερο σύνθετη και προϋπέθετε μηχανισμούς ασφαλούς τεχνικής σύνδεσης, γεγονός που περιόριζε τη φυσικότητα της εμπειρίας για τον τελικό χρήστη.
 
-Με άλλα λόγια, η Φάση 1 απέδειξε την αξία της συλλογής, της σημασιολογικής οργάνωσης και του \textlatin{closed-loop automation}, αλλά κατέστησε εμφανές ότι το επόμενο βήμα έπρεπε να είναι η ανάπτυξη ενός νέου επιπέδου υπηρεσιών, ειδικά σχεδιασμένου για \textlatin{cloud} πρόσβαση, κλιμάκωση και βελτιωμένο \textlatin{UI/UX}. Η λογική κατάσταση του υποσυστήματος ελέγχου ψυγείου, όπως υλοποιήθηκε στο αρχικό \textlatin{proof-of-concept} επίπεδο, παρουσιάζεται στο Σχήμα~\ref{fig:fridge_fsm}, ενώ στο Σχήμα~\ref{fig:openhab_dashboard_legacy} αποτυπώνεται η αρχική \textlatin{engineering-oriented} διεπαφή του \textlatin{openHAB}.
+Με άλλα λόγια, η Φάση 1 απέδειξε την αξία της συλλογής, της σημασιολογικής οργάνωσης και του \textlatin{closed-loop automation}, αλλά κατέστησε εμφανές ότι το επόμενο βήμα έπρεπε να είναι η ανάπτυξη ενός νέου επιπέδου υπηρεσιών, ειδικά σχεδιασμένου για \textlatin{cloud} πρόσβαση, κλιμάκωση και βελτιωμένο \textlatin{UI/UX}. Η λογική κατάσταση του υποσυστήματος ελέγχου ψυγείου, όπως υλοποιήθηκε στο αρχικό \textlatin{proof-of-concept} επίπεδο, παρουσιάζεται στο Σχήμα~\ref{fig:fridge_fsm}, ενώ στο Σχήμα~\ref{fig:openhab_dashboard_legacy} αποτυπώνεται η αρχική \textlatin{engineering-oriented} διεπαφή του \textlatin{openHAB}. Το Σχήμα 4.1 απεικονίζει τη Μηχανή Πεπερασμένων Καταστάσεων (\textlatin{Finite State Machine}) του κανόνα \textlatin{FridgeGuardian}. Το σύστημα ξεκινά από την κατάσταση \textlatin{S0} (Πόρτα Κλειστή -- κανονική λειτουργία). Μόλις ο αισθητήρας \textlatin{ESP8266} ανιχνεύσει άνοιγμα της θύρας, μεταβαίνει στην κατάσταση \textlatin{S1} (Πόρτα Ανοιχτή) όπου ενεργοποιείται χρονόμετρο. Εάν η πόρτα παραμείνει ανοιχτή για περισσότερο από 45 δευτερόλεπτα, το σύστημα μεταβαίνει στην κατάσταση \textlatin{S2} όπου ενεργοποιείται το \textlatin{buzzer} ειδοποίησης. Το κλείσιμο της πόρτας οποιαδήποτε στιγμή επαναφέρει το σύστημα στην κατάσταση \textlatin{S0}.
 
 \begin{figure}[htbp]
 \centering
@@ -69,7 +67,7 @@
 \subsection{\textlatin{Multi-tenancy, RBAC} και έλεγχος πρόσβασης}
 Στο \textlatin{cloud} επίπεδο ενσωματώθηκε αυστηρότερη λογική ελέγχου πρόσβασης με \textlatin{Role-Based Access Control} και \textlatin{Row-Level Security}, ώστε η πλατφόρμα να υποστηρίζει απομονωμένη πρόσβαση ανά χρήστη, χώρο και οργανωτική μονάδα. Η λογική αυτή δεν σχεδιάστηκε μόνο για το παρόν \textlatin{case study}, αλλά και ως αρχιτεκτονική πρόβλεψη για πιθανή επέκταση σε περισσότερα από ένα σχολικά συγκροτήματα ή σε μελλοντικό περιβάλλον \textlatin{multi-tenant}.
 
-Το αποτέλεσμα είναι ότι οι τεχνικές λειτουργίες διαχείρισης, οι καθημερινές προβολές διοίκησης και τα εξειδικευμένα \textlatin{panels} μπορούν να διατίθενται επιλεκτικά, με σαφή διαχωρισμό μεταξύ \textlatin{administrators}, \textlatin{operation users} και απλών χρηστών παρακολούθησης. Με αυτόν τον τρόπο, η πλατφόρμα αποκτά χαρακτήρα πραγματικής υπηρεσίας \textlatin{SaaS} και όχι απλώς απομακρυσμένου \textlatin{engineering dashboard}. Μια κεντρική επισκόπηση αυτής της νέας διεπαφής παρουσιάζεται στο Σχήμα~\ref{fig:smart_campus_dashboard}.
+Το αποτέλεσμα είναι ότι οι τεχνικές λειτουργίες διαχείρισης, οι καθημερινές προβολές διοίκησης και τα εξειδικευμένα \textlatin{panels} μπορούν να διατίθενται επιλεκτικά, με σαφή διαχωρισμό μεταξύ \textlatin{administrators}, \textlatin{operation users} και απλών χρηστών παρακολούθησης. Με αυτόν τον τρόπο, η πλατφόρμα αποκτά χαρακτήρα πραγματικής υπηρεσίας \textlatin{SaaS} και όχι απλώς απομακρυσμένου \textlatin{engineering dashboard}. Μια κεντρική επισκόπηση αυτής της νέας διεπαφής παρουσιάζεται στο Σχήμα~\ref{fig:smart_campus_dashboard}. Το Σχήμα 4.3 παρουσιάζει την κεντρική επισκόπηση (\textlatin{Overview}) της πλατφόρμας. Τέσσερα στοιχεία αξίζουν ιδιαίτερης προσοχής: πρώτον, η κάρτα κατάστασης σχολείου (Ανοιχτό/Κλειστό) που αποδεικνύει ότι το σύστημα είναι \textlatin{context-aware} και προσαρμόζεται αυτόματα στο σχολικό ωράριο· δεύτερον, ο αριθμός των \textlatin{online} αισθητήρων με \textlatin{Live} badge που επιβεβαιώνει ότι υπάρχει πραγματική \textlatin{IoT} υποδομή· τρίτον, η μηνιαία κατανάλωση ενέργειας (\textlatin{kWh}) ως κεντρικό \textlatin{KPI} που συνδέεται άμεσα με τη μείωση 19,7\% που πέτυχε το σύστημα· και τέταρτον, η χαρτογράφηση του \textlatin{campus} με \textlatin{zones} που αποδεικνύει τη χωρική επίγνωση (\textlatin{spatial awareness}) του Ψηφιακού Διδύμου.
 
 \begin{figure}[htbp]
 \centering
@@ -127,10 +125,10 @@
 \label{fig:device_management}
 \end{figure}
 
-\subsection{\texorpdfstring{\textlatin{AI Energy Forecasting} και επεκτάσιμη επιχειρησιακή ευφυΐα}{AI Energy Forecasting και επεκτάσιμη επιχειρησιακή ευφυΐα}}
-Ένα από τα σημαντικότερα νέα στοιχεία της τελικής πλατφόρμας είναι η ενσωμάτωση αλγοριθμικών λειτουργιών πρόβλεψης. Στο τρέχον στάδιο αυτό εκφράζεται κυρίως μέσα από \textlatin{AI Energy Forecasting}, δηλαδή από μηχανισμούς που εκτιμούν μελλοντικές τάσεις κατανάλωσης και κόστους με βάση ιστορικά δεδομένα, μοτίβα λειτουργίας και λειτουργικά χαρακτηριστικά του σχολείου.
+\subsection{\texorpdfstring{Widgets ενεργειακής πρόβλεψης και \textlatin{LLM-based forecasting}}{Widgets ενεργειακής πρόβλεψης και LLM-based forecasting}}
+Το σύστημα διαθέτει δύο widgets ενεργειακής πρόβλεψης. Το πρώτο (\textlatin{PredictiveEnergy}) παρέχει οπτική σύγκριση προβλεπόμενης έναντι πραγματικής κατανάλωσης βάσει ιστορικών δεδομένων με \textlatin{animated bar chart}. Το δεύτερο (\textlatin{EnergyCostPrediction}) αξιοποιεί \textlatin{LLM-based forecasting} μέσω του \textlatin{Gemini API}, το οποίο λαμβάνει τα πραγματικά \textlatin{billing data} της εγκατάστασης και παράγει δομημένες προβλέψεις (\textlatin{JSON}) για ορίζοντα 3 μηνών, λαμβάνοντας υπόψη το ελληνικό τιμολόγιο ενέργειας (0,162 €/\textlatin{kWh}), το σχολικό ημερολόγιο, την εποχικότητα και τον επαληθευμένο συντελεστή μείωσης 19,7\%.
 
-Η ενσωμάτωση αυτής της λογικής έχει διττή σημασία. Από τη μία πλευρά, ενισχύει το επίπεδο λήψης αποφάσεων για ενεργειακό σχεδιασμό και προληπτικές ενέργειες. Από την άλλη, αποτελεί το πρώτο βήμα προς ένα περισσότερο γνωστικό, αναλυτικό στρώμα λειτουργίας, το οποίο στο μέλλον μπορεί να υποστηρίξει ανίχνευση ανωμαλιών, προγνωστική συντήρηση και πιο σύνθετες μορφές \textlatin{campus optimization}. Η λειτουργία αυτή οπτικοποιείται στο Σχήμα~\ref{fig:ai_energy_forecasting}.
+Η προσέγγιση αυτή αποτελεί \textlatin{LLM-as-a-forecaster} με \textlatin{domain knowledge}, όχι κλασικό στατιστικό μοντέλο τύπου \textlatin{ARIMA} ή \textlatin{LSTM}. Η λειτουργία αυτή οπτικοποιείται στο Σχήμα~\ref{fig:ai_energy_forecasting}.
 
 \begin{figure}[htbp]
 \centering
@@ -139,7 +137,7 @@
 \vspace{0.5em}
 
 \includegraphics[width=0.78\textwidth]{fig_4_61}
-\caption{Ενδεικτική απεικόνιση της λειτουργίας πρόβλεψης ενεργειακού κόστους μέσω αλγοριθμικής ανάλυσης.}
+\caption{Ενδεικτική απεικόνιση των δύο widgets ενεργειακής πρόβλεψης της πλατφόρμας: \textlatin{PredictiveEnergy} και \textlatin{EnergyCostPrediction}.}
 \label{fig:ai_energy_forecasting}
 \end{figure}
 
@@ -158,40 +156,5 @@
 \end{figure}
 
 \section{Συνολική Τεχνική Αποτίμηση του Κεφαλαίου}
-Η τεχνική υλοποίηση που παρουσιάστηκε στο παρόν κεφάλαιο αναδεικνύει ότι το ψηφιακό δίδυμο δεν αναπτύχθηκε ως μονοφασική λύση, αλλά ως διαδοχική σύνθεση τεχνολογικών στρωμάτων και πρακτικών επιλογών. Η πρώτη φάση τεκμηρίωσε ότι το \textlatin{edge hardware}, το \textlatin{MQTT}, το \textlatin{openHAB}, η \textlatin{InfluxDB} και η \textlatin{Grafana} μπορούσαν να λειτουργήσουν ως αξιόπιστο τεχνολογικό εργαστήριο και να αποδώσουν μετρήσιμα αποτελέσματα. Η δεύτερη φάση αξιοποίησε αυτό το υπόβαθρο για να μετασχηματίσει το σύστημα σε \textlatin{cloud-native} πλατφόρμα \textlatin{Smart Campus}, με σαφώς ισχυρότερο \textlatin{UI/UX}, \textlatin{responsive} πρόσβαση, πολυεπίπεδη οπτικοποίηση και αλγοριθμική προοπτική.
+Το παρόν κεφάλαιο περιέγραψε τη μετάβαση από το τοπικό πρωτότυπο με \textlatin{MQTT}, \textlatin{openHAB}, \textlatin{InfluxDB} και \textlatin{Grafana} σε μια πολυεπίπεδη αρχιτεκτονική \textlatin{cloud SaaS} με \textlatin{React}, \textlatin{Supabase/PostgreSQL} και \textlatin{Edge Functions}. Η τελική υλοποίηση συνδυάζει \textlatin{edge} συλλογή δεδομένων, σημασιολογική οργάνωση, αμφίδρομο έλεγχο, χωρική οπτικοποίηση \textlatin{2D/3D}, διαβαθμισμένη πρόσβαση και εξειδικευμένα widgets λειτουργικής ανάλυσης. Από αρχιτεκτονική άποψη, το σύστημα διαχωρίζει το επίπεδο πεδίου από το επίπεδο υπηρεσιών και διεπαφής, ώστε να υποστηρίζεται κλιμάκωση, απομακρυσμένη πρόσβαση και επέκταση σε πρόσθετα υποσυστήματα του σχολικού συγκροτήματος.
 
-Κατά συνέπεια, η συνεισφορά της υλοποίησης δεν βρίσκεται μόνο στο ποια εργαλεία χρησιμοποιήθηκαν, αλλά κυρίως στον τρόπο με τον οποίο συνδέθηκαν σε μία συνεκτική, εξελίξιμη αρχιτεκτονική. Το \textlatin{edge middleware} διατηρεί την επιχειρησιακή εγγύτητα με το φυσικό πεδίο, ενώ το επίπεδο \textlatin{cloud SaaS} μεταφέρει την πλατφόρμα σε ένα περισσότερο ώριμο, επεκτάσιμο και οργανωσιακά αξιοποιήσιμο επίπεδο λειτουργίας.
-
-Η τελική μορφή της πλατφόρμας είναι επιχειρησιακά ενεργή και δημόσια προσβάσιμη στη διεύθυνση \href{https://digitaltwin.pi-tech.gr}{https://digitaltwin.pi-tech.gr}. Η διαθεσιμότητα αυτή επιβεβαιώνει εμπράκτως τον \textlatin{production-ready} χαρακτήρα της λύσης και τη δυνατότητα επανάληψής της σε άλλες εκπαιδευτικές εγκατάστασεις.
-
-\section{Διαγράμματα Αρχιτεκτονικής Ροής Δεδομένων}
-\label{sec:data_flow_diagrams}
-
-Για την πλήρη τεκμηρίωση της αρχιτεκτονικής ροής δεδομένων, παρατίθενται τρία συμπληρωματικά διαγράμματα.
-
-Το Σχήμα~\ref{fig:er_diagram} (\textlatin{ER Diagram}) αποτυπώνει τη σχεσιακή δομή της βάσης δεδομένων \textlatin{Supabase/PostgreSQL}, με έμφαση στις σχέσεις μεταξύ οντοτήτων \textlatin{organizations, digital\_twins, sensors} και \textlatin{sensor\_readings}, καθώς και στην εφαρμογή \textlatin{Row-Level Security} μέσω \textlatin{org\_id}.
-
-\begin{figure}[htbp]
-\centering
-\figureplaceholder{ER Diagram - Supabase/PostgreSQL Database Structure}
-\caption{Διάγραμμα Οντοτήτων-Σχέσεων (\textlatin{ER Diagram}) της βάσης δεδομένων \textlatin{Supabase/PostgreSQL}}
-\label{fig:er_diagram}
-\end{figure}
-
-Το Σχήμα~\ref{fig:sequence_diagram} (\textlatin{UML Sequence Diagram}) αποτυπώνει την αμφίδρομη ανταλλαγή δεδομένων μεταξύ των επιπέδων: \textlatin{Sensor Nodes $\rightarrow$ MQTT Broker $\rightarrow$ openHAB $\rightarrow$ Supabase Edge Function $\rightarrow$ PostgreSQL $\rightarrow$ Supabase Realtime $\rightarrow$ React UI}. Η αμφίδρομη φύση του διαγράμματος (\textlatin{Sense} $\uparrow$ / \textlatin{Act} $\downarrow$) τεκμηριώνει εμπράκτως τον χαρακτηρισμό του συστήματος ως αυθεντικό \textlatin{Digital Twin} και όχι απλό \textlatin{Digital Shadow}.
-
-\begin{figure}[htbp]
-\centering
-\figureplaceholder{UML Sequence Diagram - Bidirectional Data Flow}
-\caption{\textlatin{UML Sequence Diagram} --- Αμφίδρομη ροή δεδομένων \textlatin{Sensor Nodes $\leftrightarrow$ React UI}}
-\label{fig:sequence_diagram}
-\end{figure}
-
-Το Σχήμα~\ref{fig:dfd_diagram} (\textlatin{Data Flow Diagram}) αποτυπώνει τις δύο κύριες ροές δεδομένων της πλατφόρμας: (α) \textlatin{Acoustic Comfort Pipeline: ESP32/INMP441 $\rightarrow$ MQTT $\rightarrow$ openHAB Rules $\rightarrow$ Quiet-Lamp actuation}, και (β) \textlatin{Facility Management Pipeline: Shelly 1PM $\rightarrow$ MQTT $\rightarrow$ openHAB $\rightarrow$ FridgeGuardian FSM $\rightarrow$ Buzzer actuation $\rightarrow$ Supabase logging}.
-
-\begin{figure}[htbp]
-\centering
-\figureplaceholder{Data Flow Diagram - Pipelines}
-\caption{\textlatin{Data Flow Diagram} --- \textlatin{Acoustic Comfort} και \textlatin{Facility Management Pipelines}}
-\label{fig:dfd_diagram}
-\end{figure}
