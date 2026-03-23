@@ -114,7 +114,7 @@
 
 Συγκεκριμένα, η καρτέλα περιλαμβάνει: (α) κατάλογο συσκευών με κάρτα για κάθε \textlatin{device} (\textlatin{Raspberry Pi 4}, \textlatin{ESP32}, \textlatin{Shelly 1PM}, μαγνητικές επαφές, \textlatin{DFPlayer}) που εμφανίζει \textlatin{specs}, πρωτόκολλο επικοινωνίας και τοποθεσία εγκατάστασης, (β) \textlatin{live telemetry} από το \textlatin{openHAB} με πραγματικές τιμές κατάστασης (\textlatin{online/offline}) και τελευταίες μετρήσεις ανά συσκευή, (γ) 24ωρο \textlatin{uptime timeline} που αποτυπώνει οπτικά την ιστορία διαθεσιμότητας κάθε κόμβου, (δ) διάγραμμα τοπολογίας δικτύου που δείχνει τη ροή δεδομένων από τους αισθητήρες προς τον \textlatin{edge server} και το \textlatin{cloud}, και (ε) τρισδιάστατη προβολή των \textlatin{hardware components} για άμεση οπτική αναγνώριση του εξοπλισμού.
 
-Η καρτέλα αυτή τεκμηριώνει ότι το Ψηφιακό Δίδυμο στηρίζεται σε πραγματική, επαληθεύσιμη \textlatin{IoT} υποδομή. Ο αναγνώστης μπορεί να επιβεβαιώσει ακριβώς ποιο \textlatin{hardware} χρησιμοποιήθηκε, πού τοποθετήθηκε και αν λειτουργεί σωστά σε πραγματικό χρόνο. Η λειτουργία αυτή αποτυπώνεται στο Σχήμα~\ref{fig:device_management}. Το Σχήμα~\ref{fig:device_management} παρουσιάζει την καρτέλα διαχείρισης συσκευών. Διακρίνονται κάρτες για κάθε \textlatin{device} της εγκατάστασης με \textlatin{live status} (\textlatin{online/offline}), τελευταία μέτρηση και 24ωρο \textlatin{uptime timeline}. Στο κάτω μέρος εμφανίζεται ο πίνακας ελέγχου πυλών με τις επιλογές Άνοιγμα και Κλείσιμο.
+Η καρτέλα αυτή τεκμηριώνει ότι το Ψηφιακό Δίδυμο στηρίζεται σε πραγματική, επαληθεύσιμη \textlatin{IoT} υποδομή. Ο αναγνώστης μπορεί να επιβεβαιώσει ακριβώς ποιο \textlatin{hardware} χρησιμοποιήθηκε, πού τοποθετήθηκε και αν λειτουργεί σωστά σε πραγματικό χρόνο. Η λειτουργία αυτή αποτυπώνεται στο Σχήμα~\ref{fig:device_management}. όπου παρουσιάζεται η καρτέλα διαχείρισης συσκευών. Διακρίνονται κάρτες για κάθε \textlatin{device} της εγκατάστασης με \textlatin{live status} (\textlatin{online/offline}), τελευταία μέτρηση και 24ωρο \textlatin{uptime timeline}. Στο κάτω μέρος εμφανίζεται ο πίνακας ελέγχου πυλών με τις επιλογές Άνοιγμα και Κλείσιμο.
 
 \begin{figure}[htbp]
 \centering
@@ -130,7 +130,7 @@
 \subsection{\texorpdfstring{\textlatin{Widgets} ενεργειακής πρόβλεψης και \textlatin{LLM-based forecasting}}{Widgets ενεργειακής πρόβλεψης και LLM-based forecasting}}
 Το σύστημα διαθέτει δύο \textlatin{widgets} ενεργειακής πρόβλεψης. Το πρώτο (\textlatin{PredictiveEnergy}) παρέχει οπτική σύγκριση προβλεπόμενης έναντι πραγματικής κατανάλωσης βάσει ιστορικών δεδομένων με \textlatin{animated bar chart}. Το δεύτερο (\textlatin{EnergyCostPrediction}) αξιοποιεί \textlatin{LLM-based forecasting} μέσω του \textlatin{Gemini API}, το οποίο λαμβάνει τα πραγματικά \textlatin{billing data} της εγκατάστασης και παράγει δομημένες προβλέψεις (\textlatin{JSON}) για ορίζοντα 3 μηνών, λαμβάνοντας υπόψη το ελληνικό τιμολόγιο ενέργειας (0,162 €/\textlatin{kWh}), το σχολικό ημερολόγιο, την εποχικότητα και τη μείωση 19,7\% που παρατηρήθηκε κατά την περίοδο λειτουργίας.
 
-Η προσέγγιση αυτή αποτελεί \textlatin{LLM-as-a-forecaster} με \textlatin{domain knowledge}, όχι κλασικό στατιστικό μοντέλο τύπου \textlatin{ARIMA} ή \textlatin{LSTM}. Η λειτουργία αυτή οπτικοποιείται στο Σχήμα~\ref{fig:ai_energy_forecasting}. Το Σχήμα~\ref{fig:ai_energy_forecasting} παρουσιάζει τα δύο \textlatin{widgets} ενεργειακής πρόβλεψης. Αριστερά το \textlatin{PredictiveEnergy} με \textlatin{animated bar chart} που συγκρίνει προβλεπόμενη έναντι πραγματικής κατανάλωσης ανά μήνα. Δεξιά το \textlatin{EnergyCostPrediction} με πρόβλεψη κόστους για τους επόμενους 3 μήνες, εκτιμώμενο ετήσιο κόστος και προτάσεις εξοικονόμησης.
+Η προσέγγιση αυτή αποτελεί \textlatin{LLM-as-a-forecaster} με \textlatin{domain knowledge}, όχι κλασικό στατιστικό μοντέλο τύπου \textlatin{ARIMA} ή \textlatin{LSTM}. Η λειτουργία αυτή οπτικοποιείται στο Σχήμα~\ref{fig:ai_energy_forecasting}, όπου παρουσιάζονται τα δύο \textlatin{widgets} ενεργειακής πρόβλεψης. Αριστερά το \textlatin{PredictiveEnergy} με \textlatin{animated bar chart} που συγκρίνει προβλεπόμενη έναντι πραγματικής κατανάλωσης ανά μήνα. Δεξιά το \textlatin{EnergyCostPrediction} με πρόβλεψη κόστους για τους επόμενους 3 μήνες, εκτιμώμενο ετήσιο κόστος και προτάσεις εξοικονόμησης.
 
 \begin{figure}[htbp]
 \centering
@@ -139,7 +139,7 @@
 \vspace{0.5em}
 
 \includegraphics[width=0.78\textwidth]{fig_4_61}
-\caption{Ενδεικτική απεικόνιση των δύο widgets ενεργειακής πρόβλεψης της πλατφόρμας: \textlatin{PredictiveEnergy} και \textlatin{EnergyCostPrediction}.}
+\caption{Ενδεικτική απεικόνιση των δύο \textlatin{widgets} ενεργειακής πρόβλεψης της πλατφόρμας: \textlatin{PredictiveEnergy} και \textlatin{EnergyCostPrediction}.}
 \label{fig:ai_energy_forecasting}
 \end{figure}
 
