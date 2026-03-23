@@ -23,10 +23,11 @@
 \def\tl{\textlatin}
 \def\tg{\textgreek}
 \newcommand{\en}[1]{\textlatin{#1}}
+\newcommand{\greekbibliographytitle}{Βιβλιογραφία}
 \renewcommand{\contentsname}{Περιεχόμενα}
 \renewcommand{\listfigurename}{Κατάλογος Σχημάτων}
-\addto\captionsenglish{\renewcommand{\bibname}{Βιβλιογραφία}}
-\addto\captionsgreek{\renewcommand{\bibname}{Βιβλιογραφία}}
+\addto\captionsenglish{\renewcommand{\bibname}{\greekbibliographytitle}}
+\addto\captionsgreek{\renewcommand{\bibname}{\greekbibliographytitle}}
 \newcommand{\figureplaceholder}[2][0.82\textwidth]{%
   \fbox{%
     \begin{minipage}[c][0.2\textheight][c]{#1}
@@ -68,7 +69,7 @@
 \clearpage
 
 \listoftables
-\addcontentsline{toc}{chapter}{ÎšÎ±Ï„Î¬Î»Î¿Î³Î¿Ï‚ Î Î¹Î½Î¬ÎºÏ‰Î½}
+\addcontentsline{toc}{chapter}{Κατάλογος Πινάκων}
 \clearpage
 
 \include{acronyms}
@@ -89,7 +90,7 @@
 \begingroup
 \selectlanguage{english}
 \phantomsection
-\addcontentsline{toc}{chapter}{Βιβλιογραφία}
+\addcontentsline{toc}{chapter}{\greekbibliographytitle}
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,references}
 \endgroup
