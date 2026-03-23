@@ -102,34 +102,10 @@
 Στο \textlatin{Connection Layer} αντιστοιχούν το τοπικό δίκτυο του σχολείου, η \textlatin{Wi-Fi} δικτύωση των \textlatin{edge} συσκευών και το πρωτόκολλο \textlatin{MQTT}, μέσω του οποίου διακινούνται οι μετρήσεις και οι εντολές ελέγχου. Κεντρικός διαμεσολαβητής είναι ο \textlatin{broker Eclipse Mosquitto} στο \textlatin{edge} επίπεδο, ενώ η δρομολόγηση οργανώνεται ιεραρχικά ανά χώρο και υποσύστημα, ώστε να διαχωρίζονται οι ροές τηλεμετρίας από τις εντολές ελέγχου. Με τον τρόπο αυτό υποστηρίζεται η αμφίδρομη λειτουργία του \textlatin{Digital Twin} μεταξύ αιθουσών, κυλικείου και σημείων πρόσβασης του σχολείου.
 
 \subsection{\texorpdfstring{\textlatin{Edge Middleware Layer}}{Edge Middleware Layer}}
-Το \textlatin{Edge Middleware Layer} υλοποιείται από το \textlatin{openHAB}, εγκατεστημένο στο τοπικό \textlatin{edge} περιβάλλον, το οποίο ενοποιεί την τηλεμετρία από τους κόμβους, οργανώνει σημασιολογικά τις συσκευές και τους χώρους του σχολείου και εκτελεί τους βασικούς κανόνες αυτοματισμού. Στο ίδιο επίπεδο γίνεται και η προώθηση των επιλεγμένων δομημένων δεδομένων προς το ανώτερο \textlatin{cloud} επίπεδο. Η ιεραρχική οργάνωση των οντοτήτων αυτών στο σημασιολογικό μοντέλο της πλατφόρμας απεικονίζεται στο Σχήμα~\ref{fig:semantic_model}.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\textwidth]{fig_3_4}
-\caption{Ιεραρχική οργάνωση του \textlatin{openHAB Semantic Model} για το σχολικό συγκρότημα.}
-\label{fig:semantic_model}
-\end{figure}
+Το \textlatin{Edge Middleware Layer} υλοποιείται από το \textlatin{openHAB}, εγκατεστημένο στο τοπικό \textlatin{edge} περιβάλλον, το οποίο ενοποιεί την τηλεμετρία από τους κόμβους, οργανώνει λειτουργικά τις συσκευές και τους χώρους του σχολείου και εκτελεί τους βασικούς κανόνες αυτοματισμού. Στο ίδιο επίπεδο γίνεται και η προώθηση των επιλεγμένων δομημένων δεδομένων προς το ανώτερο \textlatin{cloud} επίπεδο.
 
 \subsection{\texorpdfstring{\textlatin{Cloud Data and Services Layer}}{Cloud Data and Services Layer}}
-Το \textlatin{Cloud Data and Services Layer} αντιστοιχεί στο \textlatin{cloud SaaS} περιβάλλον της πλατφόρμας, όπου χρησιμοποιούνται \textlatin{Supabase/PostgreSQL} για υπηρεσίες και αποθήκευση και μεταφέρονται τα επιλεγμένα δομημένα δεδομένα που έχουν ήδη περάσει από το \textlatin{edge middleware}. Η συνολική τοπολογία ανάπτυξης από το πεδίο έως το νέφος παρουσιάζεται στο Σχήμα~\ref{fig:deployment_topology}.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\textwidth]{fig_3_2}
-\caption{Τοπολογία ανάπτυξης της πλατφόρμας, από το \textlatin{edge} επίπεδο και τον \textlatin{Raspberry Pi} έως το επίπεδο υπηρεσιών \textlatin{cloud SaaS}.}
-\label{fig:deployment_topology}
-\end{figure}
-
-\subsection{\texorpdfstring{\textlatin{Application and User Experience Layer}}{Application and User Experience Layer}}
-Στο \textlatin{Application and User Experience Layer} ανήκει η τελική διεπαφή \textlatin{Smart Campus}, η οποία έχει υλοποιηθεί σε \textlatin{React 18} και προσφέρει \textlatin{responsive} πρόσβαση μέσω \textlatin{browser} σε διευθυντές, διοικητικό προσωπικό, τεχνικούς και λοιπούς ρόλους του σχολείου. Στο επίπεδο αυτό συγκεντρώνονται οι πίνακες ελέγχου, οι \textlatin{2D/3D visualizations} και οι μηχανισμοί διαβαθμισμένης πρόσβασης που αποτελούν το επιχειρησιακό περιβάλλον χρήσης της πλατφόρμας. Το μοντέλο πρόσβασης και οι ρόλοι των χρηστών αποτυπώνονται στο Σχήμα~\ref{fig:rbac_model}.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\textwidth]{fig_3_3}
-\caption{Σχηματική αποτύπωση του μοντέλου πρόσβασης και των ρόλων χρηστών στο επίπεδο \textlatin{cloud SaaS} της πλατφόρμας.}
-\label{fig:rbac_model}
-\end{figure}
+Το \textlatin{Cloud Data and Services Layer} αντιστοιχεί στο \textlatin{cloud SaaS} περιβάλλον της πλατφόρμας, όπου χρησιμοποιούνται \textlatin{Supabase/PostgreSQL} για υπηρεσίες και αποθήκευση και μεταφέρονται τα επιλεγμένα δομημένα δεδομένα που έχουν ήδη περάσει από το \textlatin{edge middleware}. Το επίπεδο αυτό διαχωρίζει την τοπική συλλογή και τον αυτοματισμό από την αποθήκευση, τη διάθεση υπηρεσιών και την απομακρυσμένη πρόσβαση, επιτρέποντας τη χρήση της πλατφόρμας και από μη τεχνικούς ρόλους χωρίς μεταβολή του φυσικού εξοπλισμού πεδίου.
 
 \section{Σημασιολογική Οργάνωση και Διαλειτουργικότητα}
 Η παρούσα πλατφόρμα σχεδιάστηκε με έμφαση στη διαλειτουργικότητα, ώστε να μην περιορίζεται σε νέες συσκευές \textlatin{IoT}, αλλά να μπορεί να ενοποιεί και υφιστάμενες εγκαταστάσεις του σχολείου. Χαρακτηριστικό παράδειγμα αποτελεί η διασύνδεση με το ήδη εγκατεστημένο σύστημα αυτόματων πυλών, το οποίο εντάχθηκε στο ενιαίο περιβάλλον ελέγχου χωρίς αντικατάσταση του φυσικού εξοπλισμού, αλλά μέσω λογισμικής διασύνδεσης και κοινής διαχείρισης κατάστασης.
