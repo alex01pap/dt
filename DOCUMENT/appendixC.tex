@@ -4,7 +4,7 @@
 ακουστικής άνεσης (\textlatin{NoiseGuard}) στην εκάστοτε σχολική αίθουσα. Ο κώδικας καταγράφει τις υπερβάσεις θορύβου και
 ενεργοποιεί την οπτική ανατροφοδότηση. Ακολουθεί επίσης ο κανόνας \textlatin{FridgeGuardian}, ο οποίος ανιχνεύει παρατεταμένο άνοιγμα της θύρας του ψυγείου και ενεργοποιεί \textlatin{buzzer} ειδοποίησης μετά από 45 δευτερόλεπτα.
 
-\begin{lstlisting}[caption={Απόσπασμα Κώδικα Γ.1: Ενδεικτικός κανόνας \textlatin{NoiseGuard} σε \textlatin{openHAB}},label={lst:noiseguard_rule}]
+\begin{lstlisting}[caption={Ενδεικτικός κανόνας \textlatin{NoiseGuard} σε \textlatin{openHAB}},label={lst:noiseguard_rule}]
 var int cl1Count = 0
 
 rule "Noise threshold CL1"
@@ -32,7 +32,7 @@ end
 // counter 4 cycles x sampling rate 5s = ~20s dwell time
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Απόσπασμα Κώδικα Γ.2: Ενδεικτικός κανόνας \textlatin{FridgeGuardian} σε \textlatin{openHAB}},label={lst:fridgeguardian_rule}]
+\begin{lstlisting}[caption={Ενδεικτικός κανόνας \textlatin{FridgeGuardian} σε \textlatin{openHAB}},label={lst:fridgeguardian_rule}]
 rule "Fridge Door Alert"
 when
     Item Canteen_Fridge_Door changed to OPEN
